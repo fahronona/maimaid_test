@@ -1,13 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:maimaiid_test/Service/api_service.dart';
 
 class DetailUserPage extends StatefulWidget {
-  const DetailUserPage({Key? key}) : super(key: key);
+  final int id;
+
+  const DetailUserPage({Key? key, this.id = 1}) : super(key: key);
 
   @override
   _DetailUserPageState createState() => _DetailUserPageState();
 }
 
 class _DetailUserPageState extends State<DetailUserPage> {
+  String nama = "";
+  String email = "";
+  String avatar = "";
+  @override
+  void initState() {
+    // TODO: implement initState
+
+    super.initState();
+    ApiService().getListDetailUser(widget.id.toString()).then((value) {
+      print(value["data"]);
+      nama = value['data']['first_name'];
+      email = value['data']['email'];
+      avatar = value['data']['avatar'];
+      setState(() {});
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,22 +38,21 @@ class _DetailUserPageState extends State<DetailUserPage> {
           Container(
             height: 120,
             width: 120,
-            child: const CircleAvatar(
+            child: CircleAvatar(
               radius: 30.0,
-              backgroundImage:
-                  NetworkImage("https://reqres.in/img/faces/7-image.jpg"),
+              backgroundImage: NetworkImage(avatar),
               backgroundColor: Colors.transparent,
             ),
           ),
           const SizedBox(
             height: 20,
           ),
-          const Text("nama",
+          Text(nama,
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
           const SizedBox(
             height: 5,
           ),
-          const Text("emailll",
+          Text(email,
               style: TextStyle(fontWeight: FontWeight.normal, fontSize: 18)),
         ],
       ),

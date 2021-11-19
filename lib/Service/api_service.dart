@@ -1,25 +1,25 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:maimaiid_test/Model/model_user.dart';
 
 class ApiService {
   final Dio dio = Dio();
   final String url = 'https://reqres.in/api/users';
 
-  Future getListUser(String page) async {
+  Future<UserModel> getListUser(String page) async {
     try {
       Response response = await dio.get(url + "?page=$page");
-      return response;
+      return UserModel.fromJson(response.data);
     } catch (e) {
-      return e;
+      return UserModel.withError(e.toString());
     }
   }
 
   Future getListDetailUser(String id) async {
     try {
       Response response = await dio.get(url + "/$id");
-      return response;
+      return response.data;
     } catch (e) {
       return e;
     }

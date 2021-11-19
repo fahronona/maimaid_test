@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:maimaiid_test/Service/api_service.dart';
-import 'package:maimaiid_test/component/form_component.dart';
-import 'package:maimaiid_test/component/show_dialog.dart';
+import 'package:maimaiid_test/Component/form_component.dart';
+import 'package:maimaiid_test/Component/show_dialog.dart';
 
 class PageAddUser extends StatefulWidget {
   const PageAddUser({Key? key}) : super(key: key);
